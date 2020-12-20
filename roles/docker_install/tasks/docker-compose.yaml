@@ -1,0 +1,13 @@
+- name: Check docker-compose installed
+  shell: docker-compose --version
+  register: docker_compose_is_defined
+  ignore_errors: true
+  changed_when: false
+
+- name: Download docker-compose
+  get_url:
+    url: "{{ docker_compose_url }}"
+    dest: "{{ docker_compose_path }}"
+    mode: 0755
+  when: docker_compose_is_defined.failed|bool == true
+
