@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 RUN apt update && \
-    apt install openssh-server -y && \ 
+    apt install openssh-server python-apt -y && \ 
     apt autoremove && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp

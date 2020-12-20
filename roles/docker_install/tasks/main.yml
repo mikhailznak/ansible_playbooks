@@ -1,0 +1,5 @@
+---
+# tasks file for roles/docker_install
+- name: Debian install
+  import_tasks: debian.yml
+  when: ansible_os_family|lower == 'debian'
