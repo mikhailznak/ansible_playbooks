@@ -1,0 +1,36 @@
+- name: Collect installed modules
+  package_facts:
+    manager: "auto"
+
+- name: Check docker installed
+  debug:
+    msg: "Docker already installed"
+  when: "'{{ docker_package }}' in ansible_facts.packages"
+
+- name: Install dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+    update_cache: yes
+  when: "'{{ docker_package }}'  not in ansible_facts.packages"
+
+- name: Add GPG key
+  apt_key:
+    url: "{{ docker_apt_key }}"
+    id: 0EBFCD88
+  when: "'{{ docker_package }}' not in ansible_facts.packages"
+
+- name: Add apt-repository
+  apt_repository:
+    repo: "{{ docker_apt_repo }}"
+  when: "'{{ docker_package }}' not in ansible_facts.packages"
+
+- name: Install Docker
+  apt:
+    name: "{{ docker_package }}"
+    update_cache: yes
+  when: "'{{ docker_package }}' not in ansible_facts.packages"
