@@ -1,4 +1,5 @@
-- hosts: testing_service
+- hosts: defaults
+  become: yes
   roles:
     - docker_install
     - terraform_install
