@@ -1,0 +1,17 @@
+- name: Install ZIP
+  apt:
+    name: zip
+    update_cache: yes
+
+- name: Get Terrafrom archive
+  get_url:
+    url: "{{ terraform_url }}"
+    dest: "{{ terraform_install_path }}"
+    mode: 0755
+
+- name: Unzip to destiantion
+  unarchive:
+    src: /tmp/terraform.zip
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: 0755
