@@ -1,0 +1,20 @@
+- name: Get Maven archive
+  get_url:
+    url: "{{ maven_url }}"
+    dest: "{{ maven_archive }}"
+    mode: 0755
+
+- name: Unzip to destiantion
+  unarchive:
+    src: "{{ maven_archive }}"
+    dest: "{{ maven_path }}"
+    owner: "{{ owner }}"
+    remote_src: yes
+    mode: 0755
+
+- name: Copy maven.sh
+  template:
+    src: maven.sh.j2
+    dest: /etc/profile.d/maven.sh
+    owner: "{{ owner }}"
+    mode: 0755

@@ -2,4 +2,5 @@
 # defaults file for roles/terraform_install
 terraform_version: 0.14.3
 terraform_url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
-terraform_install_path: "/tmp/terraform.zip"
+terraform_archive: "/tmp/terraform.zip"
+terraform_path: "/usr/local/bin"

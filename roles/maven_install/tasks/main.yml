@@ -1,0 +1,5 @@
+---
+# tasks file for roles/maven_install
+- name: Debian maven install
+  import_tasks: debian.yml
+  when: ansible_os_family|lower == 'debian'

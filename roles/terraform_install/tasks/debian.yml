@@ -6,12 +6,12 @@
 - name: Get Terrafrom archive
   get_url:
     url: "{{ terraform_url }}"
-    dest: "{{ terraform_install_path }}"
+    dest: "{{ terraform_archive }}"
     mode: 0755
 
 - name: Unzip to destiantion
   unarchive:
-    src: /tmp/terraform.zip
-    dest: /usr/local/bin
+    src: "{{ terraform_archive }}"
+    dest: "{{ terraform_path }}"
     remote_src: yes
     mode: 0755
