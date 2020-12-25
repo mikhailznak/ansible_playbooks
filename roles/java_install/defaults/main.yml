@@ -1,0 +1,5 @@
+---
+# defaults file for roles/java_install
+version: 11
+kit: jdk
+package: openjdk-{{ version }}-{{ kit }}

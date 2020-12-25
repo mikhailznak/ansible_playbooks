@@ -1,0 +1,26 @@
+- name: Collect installed modules
+  package_facts:
+    manager: "auto"
+
+- name: Check Java installed
+  debug:
+    msg: "Java already installed"
+  when: package in ansible_facts.packages
+
+- name: Install java
+  apt:
+    name: "{{ package }}"
+    update_cache: yes
+  when: package not in ansible_facts.packages
+
+- name: Set java version jdk
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-{{ version }}-openjdk-amd64/bin/java
+  when: kit == "jdk"
+
+- name: Set java version jre
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-{{ version }}-openjdk-amd64/{{ kit }}/bin/java
+  when: kit == "jre"
