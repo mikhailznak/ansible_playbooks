@@ -1,0 +1,4 @@
+---
+# defaults file for roles/gcloud_install
+gcloud_repo: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
+gcloud_gpg_key: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"

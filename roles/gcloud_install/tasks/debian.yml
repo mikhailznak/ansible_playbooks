@@ -1,0 +1,25 @@
+- name: Collect installed modules
+  package_facts:
+    manager: "auto"
+
+- name: Install dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+    update_cache: yes
+
+- name: Adding GPG key
+  apt_key:
+    url: "{{ gcloud_gpg_key }}"
+
+- name: Add specified repository into sources list
+  apt_repository:
+    repo: "{{ gcloud_repo }}"
+
+- name: Install gcloud
+  apt:
+    name: google-cloud-sdk
+    update_cache: yes
+

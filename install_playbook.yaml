@@ -1,7 +1,8 @@
-- hosts: defaults
+- hosts: localhost
   become: yes
   roles:
     - docker_install
     - terraform_install
     - java_install
     - maven_install
+    - gcloud_install
