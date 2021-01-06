@@ -34,3 +34,8 @@
     name: "{{ docker_package }}"
     update_cache: yes
   when: "'{{ docker_package }}' not in ansible_facts.packages"
+
+- name: Add user to group
+  user:
+    name: "{{ docker_user }}"
+    group: docker

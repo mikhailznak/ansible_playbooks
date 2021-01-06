@@ -1,0 +1,21 @@
+- hosts: k8s
+  become: yes
+  roles:
+    - role: docker_install
+      vars:
+        docker_user: vagrant
+    - role: k8s_install
+
+- hosts: master
+  become: yes
+  tasks:
+    - include_role:
+        name: k8s_install
+        tasks_from: master
+
+- hosts: slave
+  become: yes
+  tasks:
+    - include_role:
+        name: k8s_install
+        tasks_from: slave

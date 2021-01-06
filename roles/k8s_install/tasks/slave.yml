@@ -1,0 +1,17 @@
+- name: Configure node ip
+  lineinfile:
+    create: yes
+    path: /etc/default/kubelet
+    line: KUBELET_EXTRA_ARGS=--node-ip={{ ansible_host }}
+
+- name: Restart kubelet
+  service:
+    name: kubelet
+    daemon_reload: yes
+    state: restarted
+
+- name: Copy the join command to server location
+  copy: src=join-command.sh dest=/tmp/join-command.sh mode=0777
+
+- name: Join the node to cluster
+  command: sh /tmp/join-command.sh

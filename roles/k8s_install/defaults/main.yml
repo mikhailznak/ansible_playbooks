@@ -1,0 +1,11 @@
+---
+# defaults file for roles/k8s_install
+user: vagrant
+k8s_gpg_key: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+k8s_apt_repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+k8s_packages:
+  - kubelet
+  - kubeadm
+  - kubectl
+k8s_master_ip: 192.168.10.10
+k8s_pod_cidr: 10.244.0.0/16

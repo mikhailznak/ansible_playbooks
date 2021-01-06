@@ -1,2 +1,10 @@
-[defaults]
-testing_service ansible_host=127.0.0.1
+[master]
+master ansible_host=192.168.10.10
+
+[slave]
+slave01 ansible_host=192.168.10.11
+slave02 ansible_host=192.168.10.12
+
+[k8s:children]
+master
+slave

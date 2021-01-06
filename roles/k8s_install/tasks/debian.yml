@@ -1,0 +1,35 @@
+- name: Collect installed modules
+  package_facts:
+    manager: "auto"
+
+- name: Remove swap from /etc/fstab
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+  with_items:
+    - swap
+    - none
+
+- name: Swapp off
+  shell: swapoff -a
+  when: ansible_swaptotal_mb > 0
+
+- name: Adding GPG key
+  apt_key:
+    url: "{{ k8s_gpg_key }}"
+  when: "'{{ item }}' not in ansible_facts.packages"
+  loop: "{{ k8s_packages }}"
+
+- name: Add apt-repository
+  apt_repository:
+    repo: "{{ k8s_apt_repo }}"
+  when: "'{{ item }}' not in ansible_facts.packages"
+  loop: "{{ k8s_packages }}"
+
+- name: Install k8s_install
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  when: "'{{ item }}' not in ansible_facts.packages"
+  loop: "{{ k8s_packages }}"
