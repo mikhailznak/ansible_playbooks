@@ -39,3 +39,20 @@
   user:
     name: "{{ docker_user }}"
     group: docker
+
+- name: Config daemon.json
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+
+- name: Reload docker
+  systemd:
+    name: docker
+    state: reloaded
+
+- name: Restart docker
+  systemd:
+    name: docker
+    state: restarted
